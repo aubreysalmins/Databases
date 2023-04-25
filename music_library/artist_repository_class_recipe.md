@@ -101,9 +101,9 @@ class ArtistRepository
   # No arguments
   def all
     # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students;
+    # SELECT id, name, genre FROM artists;
 
-    # Returns an array of Student objects.
+    # Returns an array of Artist objects.
   end
 end
 ```
@@ -120,33 +120,12 @@ These examples will later be encoded as RSpec tests.
 # 1
 # Get all students
 
-repo = StudentRepository.new
+repo = ArtistRepository.new
 
-students = repo.all
-
-students.length # =>  2
-
-students[0].id # =>  1
-students[0].name # =>  'David'
-students[0].cohort_name # =>  'April 2022'
-
-students[1].id # =>  2
-students[1].name # =>  'Anna'
-students[1].cohort_name # =>  'May 2022'
-
-# 2
-# Get a single student
-
-repo = StudentRepository.new
-
-student = repo.find(1)
-
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
-
-# Add more examples for each method
-```
+artists = repo.all
+artists.length # => 2
+artists.first.id # => '1'
+artists.first.name # => 'Pixies'
 
 Encode this example as a test.
 
