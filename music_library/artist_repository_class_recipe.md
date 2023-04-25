@@ -45,12 +45,12 @@ Usually, the Model class name will be the capitalised table name (single instead
 
 # Model class
 # (in lib/artist.rb)
-class Artist
+class Album
 end
 
 # Repository class
 # (in lib/artist_repository.rb)
-class ArtistRepository
+class AlbumRepository
 end
 ```
 
@@ -65,19 +65,16 @@ Define the attributes of your Model class. You can usually map the table columns
 # Model class
 # (in lib/student.rb)
 
-class Student
+class Album
 
-  # Replace the attributes by your own columns.
-  attr_accessor :id, :name, :cohort_name
+attr_accessor :id, :title, release_year, :artist_id
 end
 
-# The keyword attr_accessor is a special Ruby feature
-# which allows us to set and get attributes on an object,
-# here's an example:
-#
-# student = Student.new
-# student.name = 'Jo'
-# student.name
+# Repository class
+# (in lib/album_repository.rb)
+
+class AlbumRepository
+end
 ```
 
 *You may choose to test-drive this class, but unless it contains any more logic than the example above, it is probably not needed.*
@@ -90,20 +87,20 @@ Using comments, define the method signatures (arguments and return value) and wh
 
 ```ruby
 # EXAMPLE
-# Table name: artists
+# Table name: albums
 
 # Repository class
 # (in lib/artist_repository.rb)
 
-class ArtistRepository
+class AlbumRepository
 
   # Selecting all records
   # No arguments
   def all
     # Executes the SQL query:
-    # SELECT id, name, genre FROM artists;
+    # SELECT id, title, release_year, artist_id FROM albums;
 
-    # Returns an array of Artist objects.
+    # Returns an array of Album objects.
   end
 end
 ```
@@ -118,14 +115,16 @@ These examples will later be encoded as RSpec tests.
 # EXAMPLES
 
 # 1
-# Get all students
+# Get all albums
 
-repo = ArtistRepository.new
+repo = AlbumRepository.new
 
-artists = repo.all
-artists.length # => 2
-artists.first.id # => '1'
-artists.first.name # => 'Pixies'
+albums = repo.all
+
+albums.length # => 2
+albums.first.title # => 'Bossanova'
+albums.first.release_year # => '1999'
+albums.first.artist_id # => '1'
 
 Encode this example as a test.
 
