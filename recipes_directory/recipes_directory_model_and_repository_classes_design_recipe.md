@@ -13,9 +13,7 @@ In this template, we'll use an example table students
 Table: recipes
 
 Columns:
- | name | cohort_name
-
-
+  id | name | average_cooking_time | rating
 
 2. Create Test SQL seeds
 Your tests will depend on data stored in PostgreSQL to run.
@@ -23,7 +21,7 @@ Your tests will depend on data stored in PostgreSQL to run.
 If seed data is provided (or you already created it), you can skip this step.
 
 -- EXAMPLE
--- (file: spec/seeds_{table_name}.sql)
+-- (file: spec/seeds_recipes.sql)
 
 -- Write your SQL seed here. 
 
