@@ -1,5 +1,5 @@
 require_relative 'lib/database_connection'
-# require_relative 'lib/recipe_repository'
+require_relative 'lib/recipe_repository'
 
 # We need to give the database name to the method `connect`.
 DatabaseConnection.connect('recipes_directory')
@@ -12,3 +12,8 @@ DatabaseConnection.connect('recipes_directory')
 # result.each do |record|
 #   p record
 # end
+
+recipe_repository = RecipeRepository.new
+
+recipe = recipe_repository.find(1)
+puts "#{recipe.id} - #{recipe.name} - #{recipe.average_cooking_time} - #{recipe.rating}"

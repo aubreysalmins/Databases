@@ -32,7 +32,7 @@ describe RecipeRepository do
   it "returns a single recipe" do
     repo = RecipeRepository.new
 
-    recipe = repo.find(1)
+    recipe = repo.find(0)
 
     expect(recipe.id).to eq '1'
     expect(recipe.name).to eq 'Kimchi'
