@@ -16,7 +16,6 @@ album_repository = AlbumRepository.new
 #   p album
 # end
 
-repo = ArtistRepository.new
 
-artist = repo.find(1)
-puts artist.name
+album = album_repository.find(3)
+puts "#{album.id} - #{album.title} - #{album.release_year} - #{album.artist_id}"

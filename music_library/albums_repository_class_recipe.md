@@ -25,7 +25,7 @@ TRUNCATE TABLE albums RESTART IDENTITY; -- replace with your own table name.
 -- Below this line there should only be `INSERT` statements.
 -- Replace these statements with your own seed data.
 
-INSERT INTO albums (name, cohort_name) VALUES ('David', 'April 2022');
+INSERT INTO albums (title, release_year, artist_id) VALUES ('Bossanova', '1999', '1');
 ```
 
 Run this SQL file on the database to truncate (empty) the table, and insert the seed data. Be mindful of the fact any existing records in the table will be deleted.
@@ -137,34 +137,35 @@ These examples will later be encoded as RSpec tests.
 # EXAMPLES
 
 # 1
-# Get all students
+# Get all albums
 
-repo = StudentRepository.new
+repo = AlbumRepository.new
 
-students = repo.all
+albums = repo.all
 
-students.length # =>  2
+albums.length # =>  2
 
-students[0].id # =>  1
-students[0].name # =>  'David'
-students[0].cohort_name # =>  'April 2022'
+albums[0].id # =>  1
+albums[0].name # =>  'David'
+albums[0].cohort_name # =>  'April 2022'
 
-students[1].id # =>  2
-students[1].name # =>  'Anna'
-students[1].cohort_name # =>  'May 2022'
+albums[1].id # =>  2
+albums[1].name # =>  'Anna'
+albums[1].cohort_name # =>  'May 2022'
 
 # 2
-# Get a single student
+# Get a single album
 
 repo = StudentRepository.new
 
-student = repo.find(1)
+album = repo.find(1)
 
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
+album.artist_id # =>  1
+album.title # =>  'Bossanova'
+album.release_year # =>  'April 2022'
 
 # Add more examples for each method
+
 ```
 
 Encode this example as a test.
