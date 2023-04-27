@@ -39,34 +39,36 @@ INSERT INTO students (name, cohort_name) VALUES ('Anna', 'May 2022');
 Run this SQL file on the database to truncate (empty) the table, and insert the seed data. Be mindful of the fact any existing records in the table will be deleted.
 
 psql -h 127.0.0.1 your_database_name < seeds_{table_name}.sql
+
 3. Define the class names
 Usually, the Model class name will be the capitalised table name (single instead of plural). The same name is then suffixed by Repository for the Repository class name.
 
 # EXAMPLE
-# Table name: students
+# Table name: recipes
 
 # Model class
-# (in lib/student.rb)
-class Student
+# (in lib/recipe.rb)
+class Recipe
 end
 
 # Repository class
-# (in lib/student_repository.rb)
-class StudentRepository
+# (in lib/recipe_repository.rb)
+class RecipeRepository
 end
+
 4. Implement the Model class
 Define the attributes of your Model class. You can usually map the table columns to the attributes of the class, including primary and foreign keys.
 
 # EXAMPLE
-# Table name: students
+# Table name: recipes
 
 # Model class
-# (in lib/student.rb)
+# (in lib/recipe.rb)
 
-class Student
+class Recipe
 
   # Replace the attributes by your own columns.
-  attr_accessor :id, :name, :cohort_name
+  attr_accessor :id, :name, :average_cooking_time, :rating
 end
 
 # The keyword attr_accessor is a special Ruby feature
@@ -84,10 +86,10 @@ Your Repository class will need to implement methods for each "read" or "write" 
 Using comments, define the method signatures (arguments and return value) and what they do - write up the SQL queries that will be used by each method.
 
 # EXAMPLE
-# Table name: students
+# Table name: recipes
 
 # Repository class
-# (in lib/student_repository.rb)
+# (in lib/recipe_repository.rb)
 
 class StudentRepository
 
@@ -95,7 +97,7 @@ class StudentRepository
   # No arguments
   def all
     # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students;
+    # SELECT id, name, average_cooking_time, rating FROM recipes;
 
     # Returns an array of Student objects.
   end
@@ -104,21 +106,11 @@ class StudentRepository
   # One argument: the id (number)
   def find(id)
     # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students WHERE id = $1;
+    # SELECT id, name,  average_cooking_time, rating FROM recipes WHERE id = $1;
 
     # Returns a single Student object.
   end
 
-  # Add more methods below for each operation you'd like to implement.
-
-  # def create(student)
-  # end
-
-  # def update(student)
-  # end
-
-  # def delete(student)
-  # end
 end
 6. Write Test Examples
 Write Ruby code that defines the expected behaviour of the Repository class, following your design from the table written in step 5.
@@ -128,32 +120,36 @@ These examples will later be encoded as RSpec tests.
 # EXAMPLES
 
 # 1
-# Get all students
+# Get all recipes
 
-repo = StudentRepository.new
+repo = RecipeRepository.new
 
-students = repo.all
+recipes = repo.all
 
-students.length # =>  2
+recipes.length # =>  2
 
-students[0].id # =>  1
-students[0].name # =>  'David'
-students[0].cohort_name # =>  'April 2022'
+recipes[0].id # =>  1
+recipes[0].name # =>  'Kimchi'
+recipes[0].average_cooking time # =>  '2 hrs'
+recipes[0].rating # => 5
 
-students[1].id # =>  2
-students[1].name # =>  'Anna'
-students[1].cohort_name # =>  'May 2022'
+recipes[1].id # =>  2
+recipes[1].name # =>  'Pasta w/ Meatballs and Tomato Sauce'
+recipes[1].average_cooking time # =>  '1 hour'
+recipes[1].rating # => 5
+
 
 # 2
-# Get a single student
+# Get a single recipe
 
-repo = StudentRepository.new
+repo = RecipeRepository.new
 
-student = repo.find(1)
+recipe = repo.find(1)
 
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
+recipe.id # =>  1
+recipe.name # =>  'Kimchi'
+recipe.average_cooking_time # =>  '2 hrs'
+recipe.rating # => 5
 
 # Add more examples for each method
 Encode this example as a test.
@@ -165,17 +161,17 @@ This is so you get a fresh table contents every time you run the test suite.
 
 # EXAMPLE
 
-# file: spec/student_repository_spec.rb
+# file: spec/recipe_repository_spec.rb
 
-def reset_students_table
-  seed_sql = File.read('spec/seeds_students.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'students' })
+def reset_recipes_table
+  seed_sql = File.read('spec/seeds_recipes.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'recipes_directory_test' })
   connection.exec(seed_sql)
 end
 
-describe StudentRepository do
+describe RecipeRepository do
   before(:each) do 
-    reset_students_table
+    reset_recipes_table
   end
 
   # (your tests will go here).
